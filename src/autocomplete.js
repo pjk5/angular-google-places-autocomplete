@@ -165,6 +165,7 @@ angular.module('google.places', [])
                             placesService.getDetails({ placeId: prediction.place_id }, function (place, status) {
                                 if (status == google.maps.places.PlacesServiceStatus.OK) {
                                     $scope.$apply(function () {
+                                        place.prediction = prediction;
                                         $scope.model = place;
                                         $scope.$emit('g-places-autocomplete:select', place);
                                         $timeout(function () {
@@ -220,7 +221,7 @@ angular.module('google.places', [])
                         if (isString(modelValue)) {
                             viewValue = modelValue;
                         } else if (isObject(modelValue)) {
-                            viewValue = modelValue.formatted_address;
+                            viewValue = modelValue.prediction.description;
                         }
 
                         return viewValue;
